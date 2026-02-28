@@ -32,36 +32,67 @@
         <section class="content">
             <blockquote>The AI writes the code. The human writes the architecture. Neither does it alone.</blockquote>
             <hr>
-            <p>In a world where AI can generate code from a design, what is the most valuable thing a software engineer
-                can do? Making good architectural decisions.</p>
+            <p>Every conversation about AI-assisted development arrives at the same question: <em>what happens to
+                    software
+                    engineers?</em></p>
+            <p>Wrong question. The right question: <strong>in a world where AI can generate code from a design, what is
+                    the most valuable thing a software engineer can do?</strong></p>
+            <p>The answer is exactly what engineers were always supposed to be doing: making good architectural
+                decisions.</p>
 
             <h2>The Role Shift</h2>
-            <p>AI doesn't deskill engineering; it promotes the most valuable engineering work. The bottleneck moves from
-                "can we write the code?" to "can we make the right architectural decisions?"</p>
+            <p>If a well-specified design generates production-quality implementation code, then the scarce resource is
+                no longer code — it's <em>design</em>. That's not deskilling engineering. It's a
+                <strong>promotion</strong> of
+                the most valuable engineering work.</p>
 
             <h2>The Collaboration Lifecycle</h2>
-            <ol>
-                <li><strong>Product Defines What</strong>: User stories and business rules.</li>
-                <li><strong>Architect Defines How</strong>: Authors/Reviews the GASD spec.</li>
-                <li><strong>AI Generates</strong>: Implements the blueprint (Code, Tests, Docs).</li>
-                <li><strong>Formal Approval</strong>: Human reviews evidence and sanity-checks the code.</li>
-            </ol>
+            <pre><code>Product Team          Architect (Human)          AI Agent
+─────────────         ──────────────────          ──────────────
+Write User Stories →  Author/Review GASD     →  Generate Code
+                      Make design decisions       Generate Tests
+                      Resolve QUESTION blocks     Generate Docs
+                      APPROVE the spec            Attach EVIDENCE
+                                                  Open PR
+                      Review Evidence         ←  Submit for merge
+                      Merge or request changes</code></pre>
+
+            <p><strong>Stage 2 — Architect Defines How</strong>: The architect authors the GASD spec. They are **the
+                authority on every design decision**: authentication strategy, error handling, type contracts, and
+                global invariants.</p>
+
+            <p><strong>Stage 4 — Blocking Ambiguity Surfaces</strong>: When an agent hits a gap, it raises a
+                <code>QUESTION</code> block instead of guessing. Human decides. Spec updated. Decision permanently
+                recorded.
+            </p>
+
+            <p><strong>Stage 6 — Evidence Embedded</strong>: When the agent finishes, it attaches an
+                <code>EVIDENCE</code>
+                block with test coverage, passthrough rates, and validation dates directly into the spec.</p>
 
             <h2>GASD as Institutional Memory</h2>
             <p>One of the most corrosive problems: architectural decisions made by engineers who've left become
-                invisible. GASD makes institutional memory explicit by recording every <code>DECISION</code> in version
-                control with rationale and attribution.</p>
+                invisible. GASD makes institutional memory explicit. Every decision is recorded, dated, attributed, and
+                carries its <code>RATIONALE</code> in version control.</p>
+
+            <h2>The Two Fears — Answered</h2>
+            <p><strong>"Will GASD replace developers?"</strong> No. It replaces <em>routine implementation work</em>. It
+                raises the value of trade-off analysis and architectural constraint-setting.</p>
+            <p><strong>"Will juniors still learn?"</strong> Yes — arguably more. When decisions are explicit and
+                reasoned in
+                the spec, junior developers can read them, challenge them, and propose alternatives. That's how junior
+                engineers become architects.</p>
 
             <h2>The New Measure of Senior Engineering</h2>
-            <p>A senior engineer's output is measured not in lines of code but in the quality of design decisions:</p>
-            <ul>
-                <li>How well does the spec eliminate ambiguity?</li>
-                <li>How thoroughly do <code>DECISION</code> blocks capture trade-offs?</li>
-                <li>How precisely do <code>TYPE</code> contracts prevent misuse?</li>
-            </ul>
+            <p>In a GASD-driven team, output is measured in quality of design decisions: how well did the spec eliminate
+                ambiguity? How thoroughly do <code>DECISION</code> blocks capture trade-offs? How precisely do
+                <code>TYPE</code> contracts prevent misuse?
+            </p>
 
             <hr>
-            <p><em>GASD turns one-time AI conversations into permanent architectural contracts.</em></p>
+            <p><em>GASD turns one-time AI conversations into permanent architectural contracts. It makes senior
+                    engineers
+                    the design authorities they always should have been.</em></p>
         </section>
 
         <div class="navigation-links">

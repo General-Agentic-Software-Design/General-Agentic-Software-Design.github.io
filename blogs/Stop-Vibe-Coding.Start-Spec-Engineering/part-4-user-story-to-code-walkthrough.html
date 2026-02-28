@@ -32,19 +32,31 @@
         <section class="content">
             <blockquote>One login feature. No ambiguity. No drift. Here's the full run.</blockquote>
             <hr>
-            <p>We take one user story through the complete GASD lifecycle: product requirement → design spec → human
-                review checkpoint → AI-generated code → AI-generated tests.</p>
+            <p>This is where theory meets practice. We take one user story through the complete GASD lifecycle: product
+                requirement → design spec → human review checkpoint → AI-generated code → AI-generated tests. Every
+                decision traceable. Every test inevitable.</p>
 
             <h2>Step 1 — The User Story</h2>
+            <p>This comes from the product team. GASD doesn't replace it — it sits downstream of it.</p>
             <pre><code>US-042: As a registered user, I want to log in with my email and password
+so that I can access my account dashboard.
+
 Acceptance Criteria:
   AC-1: Valid credentials return a session token valid for 1 hour
   AC-2: Invalid email or password returns a 401 Unauthorized error
-  AC-3: Account locked after 5 consecutive failed login attempts
-  AC-4: Locked account returns a 403 Forbidden error</code></pre>
+  AC-3: An account is locked after 5 consecutive failed login attempts
+  AC-4: A locked account returns a 403 Forbidden error</code></pre>
+            <p>Notice what it <em>doesn't</em> say: JWT vs. opaque tokens, bcrypt vs. argon2. Those are engineering
+                decisions. This is exactly where unguided AI goes wrong — every implicit decision gets made differently
+                every session.</p>
 
             <h2>Step 2 — The GASD Spec</h2>
-            <pre><code>// ── Locked Design Decisions ───────────────────────────────────────
+            <p>The architect authors the spec — closing every door the user story left open.</p>
+            <pre><code>CONTEXT: "REST API backend"
+TARGET: "Python / FastAPI"
+TRACE: "US-042", "AC-1", "AC-2", "AC-3", "AC-4"
+
+// ── Locked Design Decisions ───────────────────────────────────────
 DECISION "Token Format":
     CHOSEN: "JWT (HS256, 1-hour expiry)"
     RATIONALE: "Stateless — no session store required for MVP."
@@ -52,41 +64,77 @@ DECISION "Token Format":
 DECISION "Password Hashing":
     CHOSEN: "bcrypt (cost=12)"
 
+// ── Type Contracts ─────────────────────────────────────────────────
+TYPE LoginRequest:
+    email:    String @format("email") @max_length(255)
+    password: String @min_length(8) @sensitive
+
 // ── Behavioral Flow ────────────────────────────────────────────────
 FLOW login(req: LoginRequest) -> SessionToken:
+    @error_strategy("Exception-based")
     1. VALIDATE req
     2. ACHIEVE "Fetch user" via UserRepository
+        ON_ERROR: THROW UnauthorizedException("Invalid credentials")
     3. ENSURE password_matches(req.password, user.password_hash)
+        OTHERWISE THROW UnauthorizedException("Invalid credentials")
     4. ENSURE user.failed_attempts < 5
-    5. ACHIEVE "Reset failed_attempts to 0"
+        OTHERWISE THROW ForbiddenException("Account locked")
+    5. ACHIEVE "Reset failed_attempts to 0" via UserRepository
     6. CREATE SessionToken
-    7. RETURN SessionToken</code></pre>
+    7. RETURN SessionToken
 
-            <h2>Step 3 — Human Review Checkpoint</h2>
-            <blockquote>"When a user successfully logs in, do we reset their failed_attempts counter?"</blockquote>
-            <p>In GASD, this becomes a formal <code>QUESTION</code> block. The team decides: <strong>yes, reset on
-                    success.</strong></p>
+// ── Global Rules ───────────────────────────────────────────────────
+CONSTRAINT: "All authentication errors MUST use the same error message"
+INVARIANT:  "A locked account MUST NOT be unlocked automatically"</code></pre>
+
+            <h2>Step 3 — The Human Review Checkpoint</h2>
+            <p>Before handing to an agent, a colleague spots a gap: <em>"When a user successfully logs in, do we reset
+                    their failed_attempts counter?"</em></p>
+            <p>In GASD, this becomes a formal block:</p>
+            <pre><code>QUESTION: "Should a successful login reset failed_attempts to 0?"
+    BLOCKING: true
+    CONTEXT: AuthService.login
+    RAISED_BY: "Lead Architect"</code></pre>
+            <p>The team decides: <strong>yes, reset on success — non-locked accounts only.</strong> Step 5 of the FLOW
+                reflects it. Decision recorded, dated, traceable.</p>
 
             <h2>Step 4 — AI Generates the Code</h2>
-            <pre><code>class AuthService:
+            <pre><code># auth_service.py — Generated from GASD spec (TRACE: US-042)
+
+class AuthService:
     def login(self, req: LoginRequest) -> SessionToken:
+        # Step 2: Fetch user — same message on failure (anti-enumeration CONSTRAINT)
         user = self._repo.find_by_email(req.email)
         if not user:
             raise HTTPException(status_code=401, detail="Invalid credentials")
 
+        # Step 3: Verify password — DECISION: bcrypt (cost=12)
         if not bcrypt.checkpw(req.password.encode(), user.password_hash.encode()):
             self._repo.increment_failed_attempts(user.id)
             raise HTTPException(status_code=401, detail="Invalid credentials")
 
+        # Step 4: Check account lock — INVARIANT enforced
         if user.failed_attempts >= 5:
             raise HTTPException(status_code=403, detail="Account locked.")
 
+        # Step 5: Reset counter on success (QUESTION resolved: yes)
         self._repo.reset_failed_attempts(user.id)
+
+        # Step 6: Generate JWT — DECISION: HS256, 1-hour expiry
         ...</code></pre>
 
             <h2>Step 5 — AI Generates the Tests</h2>
-            <p>Each test maps directly to an acceptance criterion. The <code>CONSTRAINT</code> in GASD makes proper
-                behavior (like anti-enumeration messages) <strong>inevitable</strong>.</p>
+            <p>From the same spec, the agent generates the test suite mapping directly to acceptance criteria.</p>
+            <pre><code># AC-2: Invalid email returns 401 with generic message
+def test_login_unknown_email_returns_401(service, mock_repo):
+    mock_repo.find_by_email.return_value = None
+    with pytest.raises(HTTPException) as exc:
+        service.login(LoginRequest(email="x@y.com", password="..."))
+    assert exc.value.status_code == 401
+    assert exc.value.detail == "Invalid credentials"  # CONSTRAINT verified</code></pre>
+            <p>The developer never wrote "test anti-enumeration." The GASD <code>CONSTRAINT</code> made that test
+                <strong>inevitable</strong>.
+            </p>
 
             <h2>Conclusion: What Just Happened</h2>
             <table>
@@ -108,6 +156,10 @@ FLOW login(req: LoginRequest) -> SessionToken:
                     <tr>
                         <td>Anti-enumeration constraint</td>
                         <td>Added by architect — not in user story</td>
+                    </tr>
+                    <tr>
+                        <td>Counter reset behavior</td>
+                        <td>Resolved via <code>QUESTION</code> block</td>
                     </tr>
                 </tbody>
             </table>
