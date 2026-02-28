@@ -15,6 +15,10 @@ class BlogEngine {
         this.siteHeader.onclick = () => window.location.hash = '';
 
         window.addEventListener('hashchange', () => this.handleRouting());
+
+        // Update copyright year
+        const yearElement = document.getElementById('current-year');
+        if (yearElement) yearElement.innerText = new Date().getFullYear();
     }
 
     async init() {
