@@ -1,0 +1,60 @@
+/*
+# Step 2 — The GASD Spec
+The architect authors the spec — closing every door the user story left open.
+*/
+
+CONTEXT: "REST API backend"
+TARGET: "Python / FastAPI"
+TRACE: "US-042", "AC-1", "AC-2", "AC-3", "AC-4"
+
+// ── Locked Design Decisions ───────────────────────────────────────
+DECISION "Token Format":
+    CHOSEN: "JWT (HS256, 1-hour expiry)"
+    RATIONALE: "Stateless — no session store required for MVP. Standard, well-supported."
+    ALTERNATIVES: ["Opaque token (Redis-backed)", "Session cookie"]
+    AFFECTS: [AuthService.login]
+
+DECISION "Password Hashing":
+    CHOSEN: "bcrypt (cost=12)"
+    RATIONALE: "Adaptive cost factor, constant-time comparison, available in all target runtimes"
+    AFFECTS: [AuthService.login, AuthService.register]
+
+// ── Type Contracts ─────────────────────────────────────────────────
+TYPE LoginRequest:
+    email:    String @format("email") @max_length(255)
+    password: String @min_length(8) @sensitive      // @sensitive: never log this field
+
+TYPE SessionToken:
+    token:      String   @sensitive
+    expires_at: DateTime @standard("ISO-8601")
+
+// ── Component Architecture ─────────────────────────────────────────
+COMPONENT AuthService:
+    PATTERN: "Service"
+    DEPENDENCIES: [UserRepository]
+    INTERFACE:
+        login(req: LoginRequest) -> SessionToken
+
+// ── Behavioral Flow ────────────────────────────────────────────────
+FLOW login(req: LoginRequest) -> SessionToken:
+    @error_strategy("Exception-based")
+    @trace("AC-1", "AC-2", "AC-3", "AC-4")
+
+    1. VALIDATE req
+    2. ACHIEVE "Fetch user record by email" via UserRepository
+        ON_ERROR: THROW UnauthorizedException("Invalid credentials")
+    3. ENSURE password_matches(req.password, user.password_hash)
+        OTHERWISE THROW UnauthorizedException("Invalid credentials")
+    4. ENSURE user.failed_attempts < 5
+        OTHERWISE THROW ForbiddenException("Account locked. Contact support.")
+    5. ACHIEVE "Reset failed_attempts to 0" via UserRepository
+    6. CREATE SessionToken:
+        token      = GENERATE_JWT(user.id, @algorithm("HS256"))
+        expires_at = NOW() + 1 hour
+    7. RETURN SessionToken
+
+// ── Global Rules ───────────────────────────────────────────────────
+CONSTRAINT: "Failed login attempts MUST be incremented atomically"
+CONSTRAINT: "All authentication errors MUST use the same error message to prevent user enumeration"
+INVARIANT:  "A locked account (failed_attempts >= 5) MUST NOT be unlocked automatically"
+
