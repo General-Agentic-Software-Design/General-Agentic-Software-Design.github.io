@@ -1,0 +1,53 @@
+{
+  "blogs": [
+    {
+      "id": "Stop-Vibe-Coding.Start-Spec-Engineering",
+      "title": "Stop Vibe Coding. Start Spec Engineering",
+      "description": "Architecting the future of AI-driven engineering.",
+      "parts": [
+        {
+          "id": "intro",
+          "title": "Introduction",
+          "description": "The foundational shift from prompt-shouting to rigorous design.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/Intro.md"
+        },
+        {
+          "id": "part-1-vibe-coding-vs-rigorous-engineering",
+          "title": "Part 1: Vibe Coding vs. Rigorous Engineering",
+          "description": "The productivity gains are real, but what comes after the demo?",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-1-vibe-coding-vs-rigorous-engineering.md"
+        },
+        {
+          "id": "part-2-spec-driven-development",
+          "title": "Part 2: Spec-Driven Development",
+          "description": "Why AI makes the specification the authoritative source of truth.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-2-spec-driven-development.md"
+        },
+        {
+          "id": "part-3-gasd-design-language",
+          "title": "Part 3: GASD — The Design Language",
+          "description": "Closing the gap between human intent and agent implementation.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-3-gasd-design-language.md"
+        },
+        {
+          "id": "part-4-user-story-to-code-walkthrough",
+          "title": "Part 4: From User Story to Working Code ⭐",
+          "description": "A full end-to-end walkthrough of the GASD lifecycle.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-4-user-story-to-code-walkthrough.md"
+        },
+        {
+          "id": "part-5-human-ai-collaboration",
+          "title": "Part 5: Human + AI — The New Collaboration Model",
+          "description": "How the role of the software engineer evolves in the agentic era.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-5-human-ai-collaboration.md"
+        },
+        {
+          "id": "part-6-gasd-2-teaser",
+          "title": "Part 6: What's Next — A Glimpse at GASD 2.0",
+          "description": "Moving beyond single agents to multi-agent coordination.",
+          "file": "blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-6-gasd-2-teaser.md"
+        }
+      ]
+    }
+  ]
+}
