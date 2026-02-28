@@ -1,1 +1,1 @@
-1. [Stop Vibe Coding. Start Spec Engineering](https://github.com/General-Agentic-Software-Design/General-Agentic-Software-Design.github.io/blob/main/blogs/Stop-Vibe-Coding.Start-Spec-Engineering/Intro.md)
+1. [Stop Vibe Coding. Start Spec Engineering](/blob/main/blogs/Stop-Vibe-Coding.Start-Spec-Engineering/Intro.md)
