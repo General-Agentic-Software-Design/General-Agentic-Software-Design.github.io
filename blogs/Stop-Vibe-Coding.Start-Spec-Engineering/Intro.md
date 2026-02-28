@@ -27,8 +27,9 @@ We built **GASD** — the General Agentic Software Design Language — to act as
 
 ### Resources
 
-- 📖 [Read the GASD 1.0 Specification](../GASD_Specification.md)
-- 🌟 [Join the Discussion on GitHub](https://github.com/ming-ai/General-Agentic-Software-Design-Language)
+- 📖 [Read the GASD 1.0 Specification](https://github.com/General-Agentic-Software-Design/General-Agentic-Software-Design-Language/blob/main/GASD_Specification.md)
+- 🌟 [Join the Discussion on GitHub](https://github.com/General-Agentic-Software-Design/General-Agentic-Software-Design-Language/discussions)
+- [A Full Example: Graphical Calculator](https://github.com/General-Agentic-Software-Design/Example_Graphical-Calculator)
 
 ---
 

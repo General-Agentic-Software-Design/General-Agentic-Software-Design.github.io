@@ -48,8 +48,9 @@ GASD 1.0 is available now. It transforms user stories into structured designs th
 
 ### Resources
 
-- 📖 [Read the GASD 1.0 Specification](../GASD_Specification.md)
+- 📖 [Read the GASD 1.0 Specification](https://github.com/General-Agentic-Software-Design/General-Agentic-Software-Design-Language/blob/main/GASD_Specification.md)
 - ⭐ [Try the full walkthrough](./part-4-user-story-to-code-walkthrough.md)
-- 🌟 [Join the Discussion on GitHub](https://github.com/ming-ai/General-Agentic-Software-Design-Language)
+- 🌟 [Join the Discussion on GitHub](https://github.com/General-Agentic-Software-Design/General-Agentic-Software-Design-Language/discussions)
+- [A Full Example: Graphical Calculator](https://github.com/General-Agentic-Software-Design/Example_Graphical-Calculator)
 
 **Part 6 of 6** · **Next**: Starting your first project? [Back to Part 1](./part-1-vibe-coding-vs-rigorous-engineering.md)
