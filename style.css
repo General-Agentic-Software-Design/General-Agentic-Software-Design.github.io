@@ -6,7 +6,7 @@
     --border-color: hsla(0, 0%, 50%, 0.1);
     --hover-bg: hsl(220, 20%, 97%);
     --code-bg: hsl(220, 20%, 97%);
-    --max-width: 750px;
+    --max-width: 800px;
     --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -32,8 +32,8 @@ body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.7;
-    padding: 2rem 1rem;
+    line-height: 1.6;
+    padding: 4rem 2rem;
     display: flex;
     justify-content: center;
 }
@@ -43,27 +43,12 @@ main {
     max-width: var(--max-width);
 }
 
-nav.breadcrumb {
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-}
-
-nav.breadcrumb a {
-    color: var(--accent-color);
-    text-decoration: none;
-}
-
-nav.breadcrumb span {
-    color: var(--secondary-text);
-    margin: 0 0.5rem;
-}
-
 header {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-    padding: 0.75rem 0;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -86,19 +71,20 @@ header {
 }
 
 .header-text h1 {
-    font-size: 1.4rem;
-    margin-bottom: 0.1rem;
-}
-
-.header-text p.series-meta {
-    font-size: 0.85rem;
+    font-size: 1.8rem;
     margin-bottom: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
 }
 
-h1,
-h2,
-h3,
-h4 {
+.header-text p.subtitle {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+}
+
+/* --- Content Typography --- */
+
+h1, h2, h3, h4 {
     font-family: 'Outfit', sans-serif;
     line-height: 1.3;
     margin-top: 2.5rem;
@@ -106,28 +92,11 @@ h4 {
     letter-spacing: -0.01em;
 }
 
-h1 {
-    font-size: 2.75rem;
-    font-weight: 700;
-    margin-top: 0;
-}
-
-h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
 p {
     margin-bottom: 1.5rem;
 }
 
-ul,
-ol {
+ul, ol {
     margin-bottom: 1.5rem;
     margin-left: 1.5rem;
 }
@@ -177,8 +146,7 @@ table {
     font-size: 0.95rem;
 }
 
-th,
-td {
+th, td {
     border: 1px solid var(--border-color);
     padding: 0.75rem 1rem;
     text-align: left;
@@ -193,6 +161,89 @@ hr {
     border: 0;
     border-top: 1px solid var(--border-color);
     margin: 3rem 0;
+}
+
+/* --- SPA Specific Styles --- */
+
+.loader {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    font-family: 'Outfit', sans-serif;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.error {
+    background-color: hsla(0, 100%, 50%, 0.1);
+    border-left: 4px solid hsl(0, 100%, 50%);
+    padding: 1.5rem;
+    color: hsl(0, 100%, 40%);
+    margin: 2rem 0;
+    border-radius: 4px;
+}
+
+/* --- Navigation & Links --- */
+
+.series-group {
+    margin-top: 1rem;
+}
+
+.series-heading {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.parts-list {
+    list-style: none;
+    margin-left: 2rem;
+    border-left: 2px solid var(--border-color);
+    padding-left: 1.5rem;
+}
+
+.blog-link {
+    display: block;
+    padding: 1.25rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    border-radius: 0.75rem;
+    margin: 0.5rem -1rem;
+}
+
+.blog-link:hover {
+    background-color: var(--hover-bg);
+    transform: translateX(8px);
+}
+
+.blog-link .blog-title {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.blog-link:hover .blog-title {
+    color: var(--accent-color);
+}
+
+.blog-meta {
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+}
+
+.intro-link {
+    border-bottom: 2px solid var(--accent-color);
+    background-color: var(--hover-bg);
+    margin-bottom: 2rem;
 }
 
 .navigation-links {
@@ -214,8 +265,41 @@ hr {
     text-decoration: underline;
 }
 
-.series-meta {
-    color: var(--secondary-text);
+nav.breadcrumb {
+    margin-bottom: 2rem;
     font-size: 0.9rem;
-    margin-top: 1rem;
+}
+
+nav.breadcrumb a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+nav.breadcrumb span {
+    color: var(--secondary-text);
+    margin: 0 0.5rem;
+}
+
+/* --- Article Content Transitions --- */
+
+article.content {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+article.content h1 {
+    font-size: 3rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+footer {
+    margin-top: 6rem;
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    text-align: center;
 }
