@@ -26,7 +26,6 @@ This is the **Coordination Tax** — incompatibilities that emerge when multiple
 
 GASD 1.0 doesn't solve this. GASD 2.0 is being designed to.
 
-
 ## The Bigger Vision
 
 In a traditional team, a spec is a document humans write and humans read. It informs development but doesn't drive it.
@@ -35,22 +34,22 @@ In an agentic team, the spec is the *coordination protocol* — the shared contr
 
 GASD is working toward becoming that protocol: not just a Design Bridge for one developer and one agent, but the **lingua franca of collaborative, human-supervised, multi-agent software engineering**.
 
-## Try GASD 1.0 Today
+## Start Spec Engineering Today
 
-GASD 1.0 is available now. If you've followed this series you've seen it in action — a user story becoming a GASD spec, an AI generating code and tests, a human making a critical architectural decision that gets locked into the spec permanently.
+GASD 1.0 is available now. It transforms user stories into structured designs that ensure your AI agents generate production-ready code with minimal drift.
 
-That workflow is real. It's available today. It makes a meaningful difference in the consistency and quality of AI-generated code.
+### The 3-Step Workflow
 
-**Start here:**
-
-- Read the [GASD 1.0 Specification](../GASD_Specification.md)
-- Try the login example from [Part 4](./part-4-user-story-to-code-walkthrough.md) on your own codebase
-- Open a GitHub Discussion with questions, feedback, and your own use cases
-
-The future of software engineering is structured, human-supervised, and agent-powered.
-
-GASD is the spec.
+1. **Draft**: Provide your User Stories or SRS to an agent to generate an initial GASD design.
+2. **Review & Refine**: Humans review the GASD file for architectural correctness, security, and specific constraints.
+3. **Generate**: Provide the finalized GASD to the agent with a `TARGET` (e.g., Python, Rust) to get consistent code.
 
 ---
 
-**Part 6 of 6** · **Previous**: [Part 5 — Human + AI Collaboration](./part-5-human-ai-collaboration.md) · **Back to start**: [Part 1 — Stop Vibe Coding](./part-1-vibe-coding-vs-rigorous-engineering.md)
+### Resources
+
+- 📖 [Read the GASD 1.0 Specification](../GASD_Specification.md)
+- ⭐ [Try the full walkthrough](./part-4-user-story-to-code-walkthrough.md)
+- 🌟 [Join the Discussion on GitHub](https://github.com/ming-ai/General-Agentic-Software-Design-Language)
+
+**Part 6 of 6** · **Next**: Starting your first project? [Back to Part 1](./part-1-vibe-coding-vs-rigorous-engineering.md)
