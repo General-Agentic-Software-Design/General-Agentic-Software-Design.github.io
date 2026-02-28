@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2: Spec-Driven Development - GASD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+    <main>
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="Intro.html">Stop Vibe Coding</a> <span>/</span>
+            <span>Part 2</span>
+        </nav>
+
+        <header>
+            <div class="logo-container">
+                <img src="../../logo_files/gasd_icon_white_solid.png" alt="GASD Icon">
+            </div>
+            <div class="header-text">
+                <h1>Spec-Driven Development</h1>
+                <p class="series-meta">Part 2 of 6</p>
+            </div>
+        </header>
+
+        <section class="content">
+            <blockquote>Specs aren't new. What's new is that AI agents need them to work reliably.</blockquote>
+
+            <hr>
+
+            <p>Specs predate the term "software engineer." From punched-card specifications in the 1940s to 10,000-page
+                defense contract requirements in the 1980s, specifying what a system must do before building it is as
+                old as the discipline itself.</p>
+            <p>So why is Spec-Driven Development suddenly the most discussed topic in AI-assisted engineering?</p>
+            <p>Because the audience has changed.</p>
+
+            <h2>The Spec Graveyard — A Brief History</h2>
+            <ul>
+                <li><strong>Formal Methods (1970s–90s)</strong>: Z notation, VDM, TLA+. Mathematically rigorous,
+                    provably correct, and almost entirely unused in commercial software. Written for humans to verify,
+                    not machines to execute.</li>
+                <li><strong>UML (1990s–2000s)</strong>: Visual design language, widely adopted, widely abandoned.
+                    Maintaining UML diagrams alongside living code cost more than the value they delivered.</li>
+                <li><strong>OpenAPI (2010s)</strong>: Finally — spec-driven development that <em>stuck</em>. Specify
+                    your API before implementing it; generate client SDKs, server stubs, validation middleware, and docs
+                    from a single source. It worked because the spec drove tooling, not just humans.</li>
+            </ul>
+            <p><strong>The AI Era (now)</strong>: LLMs have made this possible at the <em>entire application design
+                    level</em>. The question is no longer "can we generate code from a spec?" The question is: "what
+                kind of spec do you need for consistent, high-quality results?"</p>
+
+            <h2>The Spec-First Shift</h2>
+            <p>The core idea: <strong>the specification is the authoritative source of truth, above the code</strong>.
+            </p>
+            <p>In traditional workflows, specs drift immediately. Code diverges as requirements change and pragmatic
+                decisions accumulate. Within months, the spec is archaeology.</p>
+            <p>Spec-First flips this. The spec is not documentation written <em>after</em> decisions — it's the
+                <em>medium in which decisions are made</em>. Code is derived from the spec, not the other way around.
+            </p>
+            <p>For AI-assisted development this is critical:</p>
+            <ul>
+                <li><strong>AI has no memory across sessions.</strong> A persistent spec gives agents the context to
+                    make consistent decisions — session after session, agent after agent.</li>
+                <li><strong>Code reviews become design reviews.</strong> A spec change required for a code change makes
+                    the design decision explicit, traceable, and reviewable.</li>
+                <li><strong>Onboarding is instant.</strong> A new engineer (or agent) reads the spec and understands the
+                    architecture in minutes.</li>
+            </ul>
+
+            <h2>The Industry Is Converging Here</h2>
+            <p>Building SDD into the development loop itself:</p>
+            <ul>
+                <li><strong>Amazon Kiro</strong>: An agentic IDE that uses "Steering Files" and "Hooks" to keep specs
+                    and code synchronized.</li>
+                <li><strong>Tessl</strong>: A Spec Registry that stops agents from hallucinating APIs by providing over
+                    10,000 pre-built usage specs.</li>
+                <li><strong>Spec-kit frameworks</strong>: Open-source DSLs for capturing design intent in
+                    machine-readable formats.</li>
+            </ul>
+
+            <h2>"Isn't This Just Documentation?"</h2>
+            <p>But <strong>executable documentation doesn't rot the same way</strong>. When a spec drives code
+                generation — when changing the spec regenerates different code — spec and implementation are coupled.
+                They can't diverge silently.</p>
+
+            <h2>The Design Bridge</h2>
+            <pre><code>User Stories  →  Design Bridge (Spec)  →  Code
+   "What"              "How"               "Runnable"</code></pre>
+
+            <hr>
+            <p><em>The spec is the prompt that never drifts.</em></p>
+        </section>
+
+        <div class="navigation-links">
+            <a href="part-1-vibe-coding-vs-rigorous-engineering.html">← Previous: Part 1</a>
+            <a href="part-3-gasd-design-language.html">Next: Part 3 — GASD: A Design Language →</a>
+        </div>
+    </main>
+</body>
+
+</html>

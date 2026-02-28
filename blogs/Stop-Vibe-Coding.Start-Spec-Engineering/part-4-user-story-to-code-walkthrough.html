@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 4: From User Story to Working Code - GASD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+    <main>
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="Intro.html">Stop Vibe Coding</a> <span>/</span>
+            <span>Part 4</span>
+        </nav>
+
+        <header>
+            <div class="logo-container">
+                <img src="../../logo_files/gasd_icon_white_solid.png" alt="GASD Icon">
+            </div>
+            <div class="header-text">
+                <h1>From User Story to Working Code — A GASD Walkthrough</h1>
+                <p class="series-meta">Part 4 of 6 · ⭐ Full Walkthrough</p>
+            </div>
+        </header>
+
+        <section class="content">
+            <blockquote>One login feature. No ambiguity. No drift. Here's the full run.</blockquote>
+            <hr>
+            <p>We take one user story through the complete GASD lifecycle: product requirement → design spec → human
+                review checkpoint → AI-generated code → AI-generated tests.</p>
+
+            <h2>Step 1 — The User Story</h2>
+            <pre><code>US-042: As a registered user, I want to log in with my email and password
+Acceptance Criteria:
+  AC-1: Valid credentials return a session token valid for 1 hour
+  AC-2: Invalid email or password returns a 401 Unauthorized error
+  AC-3: Account locked after 5 consecutive failed login attempts
+  AC-4: Locked account returns a 403 Forbidden error</code></pre>
+
+            <h2>Step 2 — The GASD Spec</h2>
+            <pre><code>// ── Locked Design Decisions ───────────────────────────────────────
+DECISION "Token Format":
+    CHOSEN: "JWT (HS256, 1-hour expiry)"
+    RATIONALE: "Stateless — no session store required for MVP."
+
+DECISION "Password Hashing":
+    CHOSEN: "bcrypt (cost=12)"
+
+// ── Behavioral Flow ────────────────────────────────────────────────
+FLOW login(req: LoginRequest) -> SessionToken:
+    1. VALIDATE req
+    2. ACHIEVE "Fetch user" via UserRepository
+    3. ENSURE password_matches(req.password, user.password_hash)
+    4. ENSURE user.failed_attempts < 5
+    5. ACHIEVE "Reset failed_attempts to 0"
+    6. CREATE SessionToken
+    7. RETURN SessionToken</code></pre>
+
+            <h2>Step 3 — Human Review Checkpoint</h2>
+            <blockquote>"When a user successfully logs in, do we reset their failed_attempts counter?"</blockquote>
+            <p>In GASD, this becomes a formal <code>QUESTION</code> block. The team decides: <strong>yes, reset on
+                    success.</strong></p>
+
+            <h2>Step 4 — AI Generates the Code</h2>
+            <pre><code>class AuthService:
+    def login(self, req: LoginRequest) -> SessionToken:
+        user = self._repo.find_by_email(req.email)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+
+        if not bcrypt.checkpw(req.password.encode(), user.password_hash.encode()):
+            self._repo.increment_failed_attempts(user.id)
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+
+        if user.failed_attempts >= 5:
+            raise HTTPException(status_code=403, detail="Account locked.")
+
+        self._repo.reset_failed_attempts(user.id)
+        ...</code></pre>
+
+            <h2>Step 5 — AI Generates the Tests</h2>
+            <p>Each test maps directly to an acceptance criterion. The <code>CONSTRAINT</code> in GASD makes proper
+                behavior (like anti-enumeration messages) <strong>inevitable</strong>.</p>
+
+            <h2>Conclusion: What Just Happened</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Artifact</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>auth_service.py</code></td>
+                        <td>Generated from GASD spec</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_auth_service.py</code></td>
+                        <td>Generated from same GASD spec</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-enumeration constraint</td>
+                        <td>Added by architect — not in user story</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <p><em>The spec makes right behavior inevitable. The AI fills in the blanks — it doesn't make the
+                    decisions.</em></p>
+        </section>
+
+        <div class="navigation-links">
+            <a href="part-3-gasd-design-language.html">← Previous: Part 3</a>
+            <a href="part-5-human-ai-collaboration.html">Next: Part 5 — Human + AI: The New Collaboration Model →</a>
+        </div>
+    </main>
+</body>
+
+</html>

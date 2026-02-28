@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 1: Vibe Coding vs. Rigorous Engineering - GASD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+    <main>
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="Intro.html">Stop Vibe Coding</a> <span>/</span>
+            <span>Part 1</span>
+        </nav>
+
+        <header>
+            <div class="logo-container">
+                <img src="../../logo_files/gasd_icon_white_solid.png" alt="GASD Icon">
+            </div>
+            <div class="header-text">
+                <h1>Vibe Coding vs. Rigorous Engineering</h1>
+                <p class="series-meta">Part 1 of 6</p>
+            </div>
+        </header>
+
+        <section class="content">
+            <blockquote>AI can write code faster than any human. So why do teams keep getting burned?</blockquote>
+
+            <hr>
+
+            <p>The productivity gains are real. AI coding tools genuinely accelerate output — boilerplate disappears,
+                scaffolding takes minutes, not hours. We're not here to argue against that.</p>
+            <p>We're here to talk about what comes after the demo.</p>
+
+            <h2>"Plausible" ≠ "Correct"</h2>
+            <p>AI coding tools are optimized for one thing: generating plausible code from a natural language
+                description. Extraordinary capability. But "plausible" and "correct" are not the same thing — and "fast"
+                and "consistent" are not synonyms.</p>
+            <p>The enterprise software industry is beginning to discover this the hard way.</p>
+
+            <h2>Vibe Coding vs. Engineering</h2>
+            <p><strong>Vibe Coding</strong>: prompt the AI with a rough idea, accept whatever comes out, fix what
+                breaks, ship it. For a weekend project? Delightful. For software that processes payroll, handles medical
+                records, or manages financial transactions? A liability dressed as a productivity tool.</p>
+            <p>The problem isn't speed. It's what gets silently decided at speed.</p>
+
+            <h2>Agent Drift</h2>
+            <p>Ask any LLM to build a user authentication service. Close the chat. Open a new session. Ask again.</p>
+            <p>You get a different architecture.</p>
+            <p>First response: JWT with Redis. Second: opaque tokens in Postgres. Both valid in isolation. Both
+                reflecting completely different architectural decisions that cascade through your entire system.</p>
+            <p>This is <strong>Agent Drift</strong> — the phenomenon where repeated generation from the same intent
+                produces structurally divergent implementations. It's not a bug. It's the fundamental nature of
+                probabilistic text generation. The model isn't trying to be consistent. It's generating a plausible next
+                token.</p>
+            <p>At scale, Agent Drift compounds. Different modules, different assumptions. Different error strategies.
+                The codebase becomes a patchwork of micro-architectures — each sensible alone, incoherent together.</p>
+
+            <h2>The Debt Accelerator</h2>
+            <p>As the 2025 DORA report notes, AI acts as an <strong>amplifier</strong> — a mirror reflecting back the
+                good, bad, and ugly of your entire pipeline. Speed was never the bottleneck. Design quality was.</p>
+            <p>When a senior engineer writes code manually, every decision is deliberate. When an AI generates code,
+                decisions are implicit — buried in statistical patterns from millions of repositories of varying
+                quality. The faster you generate, the faster implicit-decision debt accumulates. You ship faster. You
+                break faster. You refactor more.</p>
+            <p>The velocity gain evaporates in maintenance.</p>
+
+            <h2>No Single Source of Truth</h2>
+            <p>This is the deeper problem the "AI makes you faster" narrative ignores:</p>
+            <p><strong>In a vibe-coded workflow, there is no single source of truth for design decisions.</strong></p>
+            <p>Why does the auth service use JWT and not opaque tokens? Check the chat history? The PR description? The
+                comments — if any were generated? These are ephemeral, unsearchable, non-authoritative. The next
+                developer (or agent) who touches that code has no reliable way to know what constraints the original
+                decision was made under.</p>
+            <p>AI makes this dramatically worse. The volume of implicit decisions explodes alongside the volume of
+                generated code.</p>
+
+            <h2>The Fix: Discipline Before Velocity</h2>
+            <p>The teams succeeding at AI-assisted engineering at scale share one trait: they establish
+                <strong>discipline</strong> before deploying <strong>velocity</strong>.
+            </p>
+            <p>They answer the architectural questions in writing before a prompt is written. They treat AI as a highly
+                capable <em>implementer</em> — given a precise brief, it produces consistent, high-quality results.
+                Given an ambiguous one, it produces inconsistent, surprising results. Just like any implementer.</p>
+            <p><strong>Before you prompt an AI to write meaningful code, answer three questions in writing:</strong></p>
+            <ol>
+                <li><strong>What design decisions are locked?</strong> (auth strategy, error handling, transaction
+                    model)</li>
+                <li><strong>What types and constraints must hold?</strong> (validation rules, edge cases, invariants)
+                </li>
+                <li><strong>What is explicitly out of scope?</strong> (what the AI must not do, even if it seems
+                    plausible)</li>
+            </ol>
+            <p>Without answers in a stable, machine-readable form — you're vibe coding, and accumulating invisible debt
+                with every generation.</p>
+
+            <hr>
+            <p><em>Code is cheap. Design decisions are gold.</em></p>
+        </section>
+
+        <div class="navigation-links">
+            <a href="Intro.html">← Previous: Introduction</a>
+            <a href="part-2-spec-driven-development.html">Next: Part 2 — Spec-Driven Development →</a>
+        </div>
+    </main>
+</body>
+
+</html>

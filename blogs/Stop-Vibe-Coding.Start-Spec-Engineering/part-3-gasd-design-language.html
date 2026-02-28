@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 3: GASD — The Design Language - GASD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+    <main>
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="Intro.html">Stop Vibe Coding</a> <span>/</span>
+            <span>Part 3</span>
+        </nav>
+
+        <header>
+            <div class="logo-container">
+                <img src="../../logo_files/gasd_icon_white_solid.png" alt="GASD Icon">
+            </div>
+            <div class="header-text">
+                <h1>GASD — The Design Language That Keeps AI Agents Honest</h1>
+                <p class="series-meta">Part 3 of 6</p>
+            </div>
+        </header>
+
+        <section class="content">
+            <blockquote>What if your architecture document was also your agent's instruction set?</blockquote>
+
+            <hr>
+
+            <p>Parts 1 and 2 established the problem and the philosophy. Now the practical question: <em>What does a
+                    spec that drives AI code generation actually look like?</em></p>
+            <p>Something purpose-built is needed: <strong>GASD</strong> — the General Agentic Software Design Language.
+            </p>
+
+            <h2>What GASD Is</h2>
+            <p>GASD is a <strong>Design Bridge Language</strong>: built for humans and AI agents to collaborate on
+                software architecture. It captures architectural decisions, type contracts, and behavioral flows with
+                enough precision that an AI agent generates consistent, deterministic code every time.</p>
+
+            <h2>The Three-Layer Model</h2>
+            <pre><code>User Stories         →    GASD Spec           →    Code
+─────────────────         ──────────────            ──────────────
+"As a user, I want        "AuthService uses         def login(...):
+ to log in..."             JWT, bcrypt cost=12,         token = jwt.encode(...)
+                           ENSURE attempts < 5"         if attempts >= 5:
+                                                            raise ForbiddenException</code></pre>
+
+            <h2>What GASD Captures</h2>
+
+            <h3><code>DECISION</code> — Lock Architectural Choices</h3>
+            <pre><code>DECISION "Password Storage":
+    CHOSEN: "bcrypt (cost=12)"
+    RATIONALE: "Industry standard, constant-time comparison, widely supported"
+    ALTERNATIVES: ["argon2", "PBKDF2"]
+    AFFECTS: [AuthService.register, AuthService.login]</code></pre>
+
+            <h3><code>TYPE</code> — Contracts, Not Prose</h3>
+            <pre><code>TYPE LoginRequest:
+    email:    String @format("email") @max_length(255)
+    password: String @min_length(8) @sensitive</code></pre>
+
+            <h3><code>COMPONENT</code> — Architecture Topology</h3>
+            <pre><code>COMPONENT AuthService:
+    PATTERN: "Service"
+    DEPENDENCIES: [UserRepository, TokenService]
+    INTERFACE:
+        login(req: LoginRequest) -> SessionToken</code></pre>
+
+            <h3><code>FLOW</code> — Constrained Behavioral Design</h3>
+            <pre><code>FLOW login(req: LoginRequest) -> SessionToken:
+    @error_strategy("Exception-based")
+    1. VALIDATE req
+    2. ACHIEVE "Fetch user by email" via UserRepository
+    3. ENSURE password_matches(req.password, user.password_hash)
+    ...</code></pre>
+
+            <h2>Contract, Not Document</h2>
+            <p>A document describes. A contract obligates. When you merge a GASD spec change, you change the contract
+                your entire engineering pipeline operates under.</p>
+
+            <h2>Before and After</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Without GASD</th>
+                        <th>With GASD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ad-hoc natural language prompts</td>
+                        <td>Structured <code>FLOW</code> and <code>DECISION</code> blocks</td>
+                    </tr>
+                    <tr>
+                        <td>Architecture decisions in Confluence</td>
+                        <td><code>DECISION</code> blocks in version control</td>
+                    </tr>
+                    <tr>
+                        <td>Inconsistent error handling</td>
+                        <td><code>@error_strategy</code> + <code>CONSTRAINT</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <p><em>GASD is the missing layer between your product requirements and your AI's output.</em></p>
+        </section>
+
+        <div class="navigation-links">
+            <a href="part-2-spec-driven-development.html">← Previous: Part 2</a>
+            <a href="part-4-user-story-to-code-walkthrough.html">Next: Part 4 — From User Story to Working Code ⭐ →</a>
+        </div>
+    </main>
+</body>
+
+</html>

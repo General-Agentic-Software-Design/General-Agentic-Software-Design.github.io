@@ -18,16 +18,16 @@
             --accent-color: hsl(220, 80%, 50%);
             --secondary-text: hsl(0, 0%, 45%);
             --hover-bg: hsl(220, 20%, 97%);
-            --max-width: 700px;
+            --max-width: 800px;
             --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: hsl(0, 0%, 5%);
-                --text-color: hsl(0, 0%, 90%);
+                --bg-color: hsl(220, 15%, 5%);
+                --text-color: hsl(220, 10%, 90%);
                 --accent-color: hsl(220, 100%, 65%);
-                --secondary-text: hsl(0, 0%, 65%);
+                --secondary-text: hsl(220, 5%, 65%);
                 --hover-bg: hsl(220, 10%, 12%);
             }
         }
@@ -54,12 +54,44 @@
         }
 
         header {
-            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid hsla(0, 0%, 50%, 0.1);
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 20%;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 110%;
+            height: 110%;
+            object-fit: contain;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0;
+        }
+
+        .header-text p.subtitle {
+            font-size: 0.9rem;
         }
 
         h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
@@ -67,7 +99,7 @@
 
         p.subtitle {
             color: var(--secondary-text);
-            font-size: 1.1rem;
+            font-size: 1.25rem;
         }
 
         ul {
@@ -97,12 +129,12 @@
 
         .blog-link:hover {
             background-color: var(--hover-bg);
-            transform: translateX(4px);
+            transform: translateX(8px);
         }
 
         .blog-title {
             display: block;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-color);
             margin-bottom: 0.25rem;
@@ -110,8 +142,41 @@
 
         .blog-meta {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--secondary-text);
+        }
+
+        .series-group {
+            margin-top: 3rem;
+            border-top: 1px solid hsla(0, 0%, 50%, 0.1);
+            padding-top: 2rem;
+        }
+
+        .series-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .intro-link {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 2rem;
+            background-color: var(--hover-bg);
+        }
+
+        .parts-list {
+            list-style: none;
+            margin-left: 2rem;
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+        }
+
+        .parts-list .blog-link {
+            padding: 0.75rem 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         .blog-link:hover .blog-title {
@@ -130,19 +195,71 @@
 <body>
     <main>
         <header>
-            <h1>General Agentic Software Design</h1>
-            <p class="subtitle">Architecting the future of AI-driven engineering.</p>
+            <div class="logo-container">
+                <img src="logo_files/gasd_icon_white_solid.png" alt="GASD Icon">
+            </div>
+            <div class="header-text">
+                <h1>General Agentic Software Design</h1>
+                <p class="subtitle">Architecting the future of AI-driven engineering.</p>
+            </div>
         </header>
 
         <section>
-            <ul>
-                <li>
-                    <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/Intro.md" class="blog-link">
-                        <span class="blog-title">1. Stop Vibe Coding. Start Spec Engineering</span>
-                        <span class="blog-meta">The foundational shift from prompt-shouting to rigorous design.</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="series-group">
+                <h2 class="series-heading">Stop Vibe Coding. Start Spec Engineering</h2>
+                <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/Intro.html" class="blog-link intro-link">
+                    <span class="blog-title">Introduction</span>
+                    <span class="blog-meta">The foundational shift from prompt-shouting to rigorous design.</span>
+                </a>
+                <ul class="parts-list">
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-1-vibe-coding-vs-rigorous-engineering.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 1: Vibe Coding vs. Rigorous Engineering</span>
+                            <span class="blog-meta">The productivity gains are real, but what comes after the
+                                demo?</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-2-spec-driven-development.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 2: Spec-Driven Development</span>
+                            <span class="blog-meta">Why AI makes the specification the authoritative source of
+                                truth.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-3-gasd-design-language.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 3: GASD — The Design Language</span>
+                            <span class="blog-meta">Closing the gap between human intent and agent
+                                implementation.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-4-user-story-to-code-walkthrough.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 4: From User Story to Working Code ⭐</span>
+                            <span class="blog-meta">A full end-to-end walkthrough of the GASD lifecycle.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-5-human-ai-collaboration.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 5: Human + AI — The New Collaboration Model</span>
+                            <span class="blog-meta">How the role of the software engineer evolves in the agentic
+                                era.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs/Stop-Vibe-Coding.Start-Spec-Engineering/part-6-gasd-2-teaser.html"
+                            class="blog-link">
+                            <span class="blog-title">Part 6: What's Next — A Glimpse at GASD 2.0</span>
+                            <span class="blog-meta">Moving beyond single agents to multi-agent coordination.</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <footer>
